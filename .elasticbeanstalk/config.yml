@@ -1,0 +1,5 @@
+branch-defaults:
+  main:
+    environment: x23363215-bookshelf-env
+global:
+  profile: null
