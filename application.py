@@ -1,0 +1,1 @@
+from bookshelf_project.wsgi import application

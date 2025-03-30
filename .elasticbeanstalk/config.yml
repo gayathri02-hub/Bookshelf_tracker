@@ -1,5 +1,22 @@
 branch-defaults:
   main:
-    environment: x23363215-bookshelf-env
+    environment: x23363215-bookshelf-tracker-env
+    group_suffix: null
+environment-defaults:
+  x23363215-bookshelf-tracker-env:
+    branch: main
+    repository: x233632315-bookshelf-codecommit
 global:
+  application_name: x23363215-bookshelf-tracker-gayatri
+  branch: main
+  default_ec2_keyname: null
+  default_platform: Python 3.9 running on 64bit Amazon Linux 2023
+  default_region: eu-west-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
   profile: null
+  repository: x233632315-bookshelf-codecommit
+  sc: git
+  workspace_type: Application

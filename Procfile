@@ -1,0 +1,1 @@
+web: gunicorn bookshelf_project.wsgi:application
