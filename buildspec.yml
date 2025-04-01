@@ -6,8 +6,8 @@ phases:
       python: 3.8
     commands:
       - pip install --upgrade pip
-      - pip install -r requirements.txt pylint
-      - apt-get update && apt-get install -y libjpeg-dev zlib1g-dev
+      - pip install -r requirements.txt
+      - yum update -y && yum install -y libjpeg-devel zlib-devel
   pre_build:
     commands:
       - pylint $CODEBUILD_SRC_DIR/bookshelf_project/* || true
