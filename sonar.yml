@@ -30,12 +30,13 @@ build:
     - if [ -z "$sonar_token" ]; then echo "SonarCloud token not set. Skipping SonarCloud analysis."; exit 0; fi
     - echo "Running SonarCloud analysis..."
     - sonar-scanner \
-        -D"sonar.projectKey=gayathri02-hub_Bookshelf_tracker " \
+        -D"sonar.projectKey=gayathri02-hub_Bookshelf_tracker" \
         -D"sonar.organization=gayathri02-hub" \
         -D"sonar.sources=." \
         -D"sonar.host.url=https://sonarcloud.io" \
         -D"sonar.login=${sonartoken}" \
         -X
+
 artifacts:
   files:
-  -'/*'
+    - '/*'
