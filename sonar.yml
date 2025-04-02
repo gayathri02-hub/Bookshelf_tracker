@@ -1,0 +1,41 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - echo "Upgrading pip..."
+      - pip install --upgrade pip --root-user-action=ignore
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt pylint --root-user-action=ignore
+      - echo "Downloading SonarCloud scanner..."
+      - curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856.zip
+      - echo "Unzipping SonarCloud scanner..."
+      - unzip sonar-scanner.zip -d /usr/local
+      - echo "Adding SonarCloud scanner to PATH..."
+      - export PATH="$PATH:/usr/local/sonar-scanner-4.8.0.2856/bin"
+
+  pre_build:
+    commands:
+      - echo "Verifying Python version..."
+      - python --version
+      - echo "Running Pylint static analysis..."
+      - pylint $CODEBUILD_SRC_DIR/*.py || true
+      - pylint $CODEBUILD_SRC_DIR/stellar//*.py || true
+
+build:
+  commands:
+    - echo "Checking if SonarCloud token is set..."
+    - if [ -z "$sonar_token" ]; then echo "SonarCloud token not set. Skipping SonarCloud analysis."; exit 0; fi
+    - echo "Running SonarCloud analysis..."
+    - sonar-scanner \
+        -D"sonar.projectKey=gayathri02-hub_Bookshelf_tracker " \
+        -D"sonar.organization=gayathri02-hub" \
+        -D"sonar.sources=." \
+        -D"sonar.host.url=https://sonarcloud.io" \
+        -D"sonar.login=${sonartoken}" \
+        -X
+artifacts:
+  files:
+  -'/*'
