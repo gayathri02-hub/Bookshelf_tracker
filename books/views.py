@@ -4,8 +4,12 @@ from .forms import BookForm
 
 # View all books
 def book_list(request):
-    books = Book.objects.all()
-    return render(request, 'books/book_list.html', {'books': books})
+    query = request.GET.get('q')
+    if query:
+        books = Book.objects.filter(title__icontains=query)
+    else:
+        books = Book.objects.all()
+    return render(request, 'books/book_list.html', {'books': books, 'query': query})
 
 # Add new book
 def book_create(request):
